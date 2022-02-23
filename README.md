@@ -1,4 +1,4 @@
-# test_project
+## notes journal
 
 ## Project setup
 ```
