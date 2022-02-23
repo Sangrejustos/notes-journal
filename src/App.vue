@@ -1,15 +1,28 @@
 <template>
   <div class="app">
-    <post-form
-      @create="createPost"
+    <h1>страница с заметками</h1>
+    <my-button class="separeteBtn" @click="showDialog">
+      Создать заметку
+    </my-button>
+
+    <my-dialog v-model:show="dialogVisible">
+      <post-form
+          @create="createPost"
+      />
+    </my-dialog>
+
+    <post-list
+        :posts="posts"
+        @remove="removePost"
+        v-if="!isLoading"
     />
-    <post-list :posts="posts"/>
   </div>
 </template>
 
 <script>
 import PostList from "@/components/PostList";
 import PostForm from "@/components/PostForm";
+import axios from 'axios'
 export default {
   components: {
     PostList, PostForm,
@@ -17,19 +30,38 @@ export default {
 
   data() {
     return {
-      posts: [
-        {id: 1, title: 'Javascript', body: 'Описание поста'},
-        {id: 2, title: 'Javascript 2', body: 'Описание поста 2'},
-        {id: 3, title: 'Javascript 3', body: 'Описание поста 3'},
-      ],
+      posts: [],
+      dialogVisible: false,
+      isLoading: false,
     }
   },
 
   methods: {
     createPost(Post) {
-      this.posts.push(Post)
+      this.posts.push(Post);
+      this.dialogVisible = false;
     },
+    removePost(Post) {
+      this.posts = this.posts.filter(p => p.id !== Post.id)
+    },
+    showDialog() {
+      this.dialogVisible = 'true'
+    },
+    async fetchNotes() {
+      try {
+        this.isLoading = true
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+        this.posts = response.data;
+      } catch (e) {
+        alert('Ошибка')
+      } finally {
+        this.isLoading = false
+      }
+    }
   },
+  mounted() {
+    this.fetchNotes();
+  }
 }
 </script>
 
@@ -42,6 +74,10 @@ export default {
 
 .app {
   padding: 20px;
+}
+
+.separeteBtn {
+  margin: 10px 0;
 }
 
 </style>

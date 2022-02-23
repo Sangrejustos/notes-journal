@@ -1,7 +1,7 @@
 <template>
   <div>
     <form @submit.prevent>
-      <h4>Создать пост</h4>
+      <h4>Создать заметку</h4>
       <my-input
           v-model="post.title"
           @input="post.title = $event.target.value"
@@ -27,9 +27,7 @@
 </template>
 
 <script>
-import MyInput from "@/components/UI/MyInput";
 export default {
-  components: {MyInput},
   data() {
     return {
       post: {
@@ -40,12 +38,12 @@ export default {
   },
   methods: {
     createPost() {
-      this.post.id = Date.now();
-      this.$emit('create', this.post)
       this.post = {
+        id: Date.now(),
         body: '',
         title: '',
       }
+      this.$emit('create', this.post)
     }
   }
 }
