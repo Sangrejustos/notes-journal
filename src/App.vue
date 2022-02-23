@@ -1,9 +1,18 @@
 <template>
   <div class="app">
     <h1>страница с заметками</h1>
-    <my-button class="separeteBtn" @click="showDialog">
-      Создать заметку
-    </my-button>
+
+    <div class = "app__btns">
+      <my-button class="separateBtn" @click="showDialog">
+        Создать заметку
+      </my-button>
+      <my-select
+       v-model="selectedSort"
+       :options="sortOptions "
+       class = "b"
+      />
+
+    </div>
 
     <my-dialog v-model:show="dialogVisible">
       <post-form
@@ -33,6 +42,11 @@ export default {
       posts: [],
       dialogVisible: false,
       isLoading: false,
+      selectedSort: '',
+      sortOptions: [
+        {value: 'title', name: 'По названию'},
+        {value: 'body', name: 'По содержимому'}
+      ]
     }
   },
 
@@ -76,8 +90,16 @@ export default {
   padding: 20px;
 }
 
-.separeteBtn {
-  margin: 10px 0;
+.separateBtn {
+
 }
+
+.app__btns {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+
 
 </style>
