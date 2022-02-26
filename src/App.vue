@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <h1>страница с заметками</h1>
+    <h1>Страница с заметками</h1>
 
     <div class = "app__btns">
       <my-button class="separateBtn" @click="showDialog">
@@ -64,7 +64,7 @@ export default {
     async fetchNotes() {
       try {
         this.isLoading = true
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=1')
         this.posts = response.data;
       } catch (e) {
         alert('Ошибка')
@@ -80,10 +80,15 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Open Sans Condensed', sans-serif;
+  color: teal;
+  font-size: 26px;
 }
 
 .app {

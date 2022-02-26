@@ -29,8 +29,8 @@ export default {
 
 <style scoped>
 .alert {
-  color:red;
-  text-align: center;
+  color:teal;
+  text-align: left;
   margin: 10px 0;
 }
 </style>
