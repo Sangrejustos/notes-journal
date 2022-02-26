@@ -8,8 +8,7 @@
       </my-button>
       <my-select
        v-model="selectedSort"
-       :options="sortOptions "
-       class = "b"
+       :options="sortOptions"
       />
 
     </div>
@@ -64,7 +63,7 @@ export default {
     async fetchNotes() {
       try {
         this.isLoading = true
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=1')
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
         this.posts = response.data;
       } catch (e) {
         alert('Ошибка')

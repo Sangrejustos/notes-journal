@@ -40,10 +40,10 @@ export default {
     createPost() {
       this.post = {
         id: Date.now(),
-        body: '',
-        title: '',
+        body: this.post.body,
+        title: this.post.title,
       }
-      this.$emit('create', this.post)
+      this.$emit('create', this.post);
     }
   }
 }
