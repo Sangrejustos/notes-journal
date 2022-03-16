@@ -1,6 +1,6 @@
 <template>
   <div>
-    <select v-model="modelValue" @change="changeOption">
+    <select v-model="modelValue" @change="changeOption" class="select">
       <option disabled value="">Выберите из списка</option>
       <option
           v-for="option in options"
@@ -31,12 +31,13 @@ export default {
     changeOption(event) {
       this.$emit('update:modelValue', event.target.value)
     }
-
   }
 
 }
 </script>
 
 <style scoped>
-
+.select {
+  cursor: pointer;
+}
 </style>

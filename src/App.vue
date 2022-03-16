@@ -1,88 +1,16 @@
 <template>
+  <navbar></navbar>
   <div class="app">
-    <h1>Страница с заметками</h1>
-
-    <div class = "app__btns">
-      <my-button class="separateBtn" @click="showDialog">
-        Создать заметку
-      </my-button>
-      <my-select
-       v-model="selectedSort"
-       :options="sortOptions"
-      />
-
-    </div>
-
-    <my-dialog v-model:show="dialogVisible">
-      <post-form
-          @create="createPost"
-      />
-    </my-dialog>
-
-    <post-list
-        :posts="sortedPosts"
-        @remove="removePost"
-        v-if="!isLoading"
-    />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import PostList from "@/components/PostList";
-import PostForm from "@/components/PostForm";
-import axios from 'axios'
+import Navbar from "@/components/Navbar";
 export default {
   components: {
-    PostList, PostForm,
-  },
-
-  data() {
-    return {
-      posts: [],
-      dialogVisible: false,
-      isLoading: false,
-      selectedSort: '',
-      sortOptions: [
-        {value: 'title', name: 'По названию'},
-        {value: 'body', name: 'По содержимому'}
-      ]
-    }
-  },
-
-  methods: {
-    createPost(Post) {
-      this.posts.push(Post);
-      this.dialogVisible = false;
-    },
-    removePost(Post) {
-      this.posts = this.posts.filter(p => p.id !== Post.id)
-    },
-    showDialog() {
-      this.dialogVisible = 'true'
-    },
-    async fetchNotes() {
-      try {
-        this.isLoading = true
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10')
-        this.posts = response.data;
-      } catch (e) {
-        alert('Ошибка')
-      } finally {
-        this.isLoading = false
-      }
-    }
-  },
-  mounted() {
-    this.fetchNotes();
-  },
-
-  computed: {
-    sortedPosts() {
-    return [...this.posts].sort((post1, post2) =>
-      post1[this.selectedSort]?.localeCompare(post2[this.selectedSort])
-    )}
+    Navbar
   }
-
 }
 </script>
 
@@ -101,17 +29,5 @@ export default {
 .app {
   padding: 20px;
 }
-
-.separateBtn {
-
-}
-
-.app__btns {
-  margin: 10px 0;
-  display: flex;
-  justify-content: space-between;
-}
-
-
 
 </style>
